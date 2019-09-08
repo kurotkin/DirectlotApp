@@ -1,31 +1,63 @@
 package com.kurotkin.directlotapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import com.kurotkin.directlotapp.net.DirectlotRepo
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import com.kurotkin.directlotapp.net.DirectlotService
-import com.kurotkin.directlotapp.net.OnLotCallback
-import com.kurotkin.directlotapp.net.entity.Lot
+import com.kurotkin.directlotapp.net.entity.LotLite
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_lot.view.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LiteLotRecyclerAdapter.OnClickListener {
+    private lateinit var recyclerAdapter: LiteLotRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // Для проверки
-        DirectlotRepo().getLots(object: OnLotCallback{
-            override fun onLotCallback(data: List<Lot>?) {
-                data?.let {
-                    it.forEach { lot -> Log.d("App", lot.toString()) }
-                }
-            }
-
-        })
+        setupAdapter()
+        coroutine()
     }
+
+    fun setupAdapter(){
+        swipe_container.setOnRefreshListener {
+            coroutine()
+        }
+        recyclerAdapter = LiteLotRecyclerAdapter(this)
+        lotList.layoutManager = LinearLayoutManager(this)
+        lotList.adapter = recyclerAdapter
+    }
+
+    fun coroutine(){
+        swipe_container.isRefreshing = true
+        CoroutineScope(Dispatchers.IO).launch {
+            val apiService = DirectlotService()
+            val result = async { apiService.getLastLiteLots() }
+            val currentResponse = result.await()
+            launch(Dispatchers.Main) {
+                updateList(currentResponse.await())
+            }
+        }
+    }
+
+    fun updateList(data: List<LotLite>){
+        recyclerAdapter.setData(data)
+        swipe_container.isRefreshing = false
+    }
+
+    override fun onItemClick(id: Long) {
+        Toast.makeText(this, "$id", Toast.LENGTH_SHORT).show()
+    }
+
 }

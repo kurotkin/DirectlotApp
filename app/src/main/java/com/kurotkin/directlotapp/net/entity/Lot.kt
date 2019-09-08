@@ -6,7 +6,7 @@ data class Lot(
     val discount: String,
     val goods: Int,
     val goodsSold: Int,
-    val id: Int,
+    val id: Long,
     val location: String,
     val name: String,
     val parseDate: String,
