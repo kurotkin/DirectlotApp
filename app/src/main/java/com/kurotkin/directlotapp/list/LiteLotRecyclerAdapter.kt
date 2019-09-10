@@ -1,8 +1,9 @@
-package com.kurotkin.directlotapp
+package com.kurotkin.directlotapp.list
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.kurotkin.directlotapp.R
 import com.kurotkin.directlotapp.net.entity.LotLite
 import kotlinx.android.synthetic.main.item_lot.view.*
 import java.util.*
@@ -23,7 +24,10 @@ class LiteLotRecyclerAdapter(private val listener: OnClickListener) : RecyclerVi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ViewHolder(layoutInflater, parent)
+        return ViewHolder(
+            layoutInflater,
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)

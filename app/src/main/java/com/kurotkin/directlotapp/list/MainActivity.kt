@@ -1,26 +1,22 @@
-package com.kurotkin.directlotapp
+package com.kurotkin.directlotapp.list
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import com.kurotkin.directlotapp.R
+import com.kurotkin.directlotapp.info.InfoActivity
 import com.kurotkin.directlotapp.net.DirectlotService
 import com.kurotkin.directlotapp.net.entity.LotLite
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_lot.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.util.*
 
 
-class MainActivity : AppCompatActivity(), LiteLotRecyclerAdapter.OnClickListener {
+class MainActivity : AppCompatActivity(),
+    LiteLotRecyclerAdapter.OnClickListener {
     private lateinit var recyclerAdapter: LiteLotRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +26,7 @@ class MainActivity : AppCompatActivity(), LiteLotRecyclerAdapter.OnClickListener
         coroutine()
     }
 
-    fun setupAdapter(){
+    fun setupAdapter() {
         swipe_container.setOnRefreshListener {
             coroutine()
         }
@@ -39,7 +35,7 @@ class MainActivity : AppCompatActivity(), LiteLotRecyclerAdapter.OnClickListener
         lotList.adapter = recyclerAdapter
     }
 
-    fun coroutine(){
+    fun coroutine() {
         swipe_container.isRefreshing = true
         CoroutineScope(Dispatchers.IO).launch {
             val apiService = DirectlotService()
@@ -51,13 +47,14 @@ class MainActivity : AppCompatActivity(), LiteLotRecyclerAdapter.OnClickListener
         }
     }
 
-    fun updateList(data: List<LotLite>){
+    fun updateList(data: List<LotLite>) {
         recyclerAdapter.setData(data)
         swipe_container.isRefreshing = false
     }
 
     override fun onItemClick(id: Long) {
-        Toast.makeText(this, "$id", Toast.LENGTH_SHORT).show()
+        val intent = InfoActivity.getInstance(this, id)
+        startActivity(intent)
     }
 
 }
