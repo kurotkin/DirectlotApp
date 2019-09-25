@@ -5,8 +5,11 @@ import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
+import android.graphics.Shader.TileMode
 import android.util.AttributeSet
 import android.view.View
+
+
 
 class LoaderView(context: Context, attributeSet: AttributeSet): View(context, attributeSet){
 
@@ -16,10 +19,6 @@ class LoaderView(context: Context, attributeSet: AttributeSet): View(context, at
     val rect = RectF()
     val paint = Paint().apply {
         color = blueColor
-    }
-    val dotPaint = Paint().apply {
-        color = Color.RED
-        strokeWidth = 2f
     }
 
     val size = resources.displayMetrics.density * 100
@@ -32,74 +31,84 @@ class LoaderView(context: Context, attributeSet: AttributeSet): View(context, at
     var radLittle = 1f
 
     var dur = 2000
+    val radC = 70f
+    var wHalf = (width / 2).toFloat()
+    var hHalf = (height / 2).toFloat()
+    var pointsOfCircles: Array<Array<Float>>
+    var radialGradients: Array<RadialGradient>
+
     init {
         val a = context.theme.obtainStyledAttributes(attributeSet, R.styleable.CustomLoaderView, 0, 0)
         dur = a.getInt(R.styleable.CustomLoaderView_duraction, 2000)
         a.recycle()
+        pointsOfCircles = arrayOf(
+            arrayOf(0.0f * radC,   -1.0f * radC),
+            arrayOf(0.5f * radC,   -0.866f * radC),
+            arrayOf(0.866f * radC, -0.5f * radC),
+            arrayOf(1.0f * radC,   -0.0f * radC),
+            arrayOf(0.866f * radC, 0.5f * radC),
+            arrayOf(0.5f * radC,   0.866f * radC),
+            arrayOf(-0.0f * radC,   1.0f * radC),
+            arrayOf(-0.5f * radC,   0.866f * radC),
+            arrayOf(-0.866f * radC, 0.5f * radC),
+            arrayOf(-1.0f * radC,   0.0f * radC),
+            arrayOf(-0.866f * radC, -0.5f * radC),
+            arrayOf(-0.5f * radC,   -0.866f * radC))
+        radialGradients = Array(pointsOfCircles.size)
+        radialGradients.fill(RadialGradient(0f, 0f, radLittle, Color.TRANSPARENT, color, TileMode.MIRROR), 0, pointsOfCircles.size)
     }
-
-
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        rect.set(width / 2 - halfSize, height / 2 - halfSize, width / 2 + halfSize, height / 2 + halfSize)
+        wHalf = (width / 2).toFloat()
+        hHalf = (height / 2).toFloat()
+        rect.set(wHalf - halfSize, hHalf - halfSize, wHalf + halfSize, hHalf + halfSize)
         startAnimation()
     }
 
     override fun onDraw(canvas: Canvas?) {
         if(canvas == null) return
-        paint.color = color
-        canvas.rotate(rot, (width / 2).toFloat(), (height / 2).toFloat())
-//        canvas.drawRoundRect(rect, rad, rad, paint)
-
-        val matrix = Matrix()
-        matrix.postScale(0.1f, 0.1f)
-//        matrix.postRotate(45f)
+//        paint.color = color
+        canvas.rotate(rot, wHalf, hHalf)
         canvas.drawBitmap(bitmap, ((width - bitmap.width) / 2 ).toFloat() , ((height  - bitmap.height) / 2).toFloat(), paint)
-        val radC = 90f
-        val w = width.toFloat()
-        val h = height.toFloat()
-        canvas.drawCircle(w / 2f + 0.0f * radC, h / 2f - 1.0f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f + 0.5f * radC, h / 2f - 0.866f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f + 0.866f * radC, h / 2f - 0.5f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f + 1.0f * radC, h / 2f - 0.0f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f + 0.866f * radC, h / 2f + 0.5f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f + 0.5f * radC, h / 2f + 0.866f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f - 0.0f * radC, h / 2f + 1.0f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f - 0.5f * radC, h / 2f + 0.866f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f - 0.866f * radC, h / 2f + 0.5f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f - 1.0f * radC, h / 2f + 0.0f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f - 0.866f * radC, h / 2f - 0.5f * radC, radLittle, paint)
-        canvas.drawCircle(w / 2f - 0.5f * radC, h / 2f - 0.866f * radC, radLittle, paint)
 
+        for(o in pointsOfCircles){
+            paint.shader = RadialGradient(o[0], o[1], radLittle, Color.TRANSPARENT, color, TileMode.MIRROR)
+            canvas.drawCircle(o[0], o[1], radLittle, paint)
+        }
     }
 
     fun startAnimation(){
-//        val vAnim = ValueAnimator.ofFloat(0f, 150f).apply {
-//            duration = 2000
-//            addUpdateListener {
-//                rad = it.animatedValue as Float
-//                invalidate()
-//            }
-//        }
-//        vAnim.start()
-
-        val ra = PropertyValuesHolder.ofFloat("rad", 0f, 150f)
-        val rProp = PropertyValuesHolder.ofFloat("radL", 1f, 100f)
+        val ra = PropertyValuesHolder.ofFloat("rad", 0f, 80f)
+        val rProp = PropertyValuesHolder.ofFloat("radL", 1f, 50f)
         val ro = PropertyValuesHolder.ofFloat("rot", 0f, 360f)
         val co = PropertyValuesHolder.ofObject("color", ArgbEvaluator(), blueColor, pinkColor)
-        val vAnim2 = ValueAnimator.ofPropertyValuesHolder(ra, rProp, ro, co).apply {
+
+        val vAnim = ValueAnimator.ofPropertyValuesHolder(ra, rProp, ro, co).apply {
             duration = this@LoaderView.dur.toLong()
             addUpdateListener {
                 rad = it.getAnimatedValue("rad") as Float
                 radLittle = it.getAnimatedValue("radL") as Float
                 rot = it.getAnimatedValue("rot") as Float
                 color = it.getAnimatedValue("color") as Int
+                pointsOfCircles = arrayOf(
+                    arrayOf(wHalf + 0.0f * radC, hHalf - 1.0f * radC),
+                    arrayOf(wHalf + 0.5f * radC, hHalf - 0.866f * radC),
+                    arrayOf(wHalf + 0.866f * radC, hHalf - 0.5f * radC),
+                    arrayOf(wHalf + 1.0f * radC, hHalf - 0.0f * radC),
+                    arrayOf(wHalf + 0.866f * radC, hHalf + 0.5f * radC),
+                    arrayOf(wHalf + 0.5f * radC, hHalf + 0.866f * radC),
+                    arrayOf(wHalf - 0.0f * radC, hHalf + 1.0f * radC),
+                    arrayOf(wHalf - 0.5f * radC, hHalf + 0.866f * radC),
+                    arrayOf(wHalf - 0.866f * radC, hHalf + 0.5f * radC),
+                    arrayOf(wHalf - 1.0f * radC, hHalf + 0.0f * radC),
+                    arrayOf(wHalf - 0.866f * radC, hHalf - 0.5f * radC),
+                    arrayOf(wHalf - 0.5f * radC, hHalf - 0.866f * radC))
                 invalidate()
             }
             repeatMode = ValueAnimator.REVERSE
             repeatCount = ValueAnimator.INFINITE
         }
-        vAnim2.start()
+        vAnim.start()
     }
 }
