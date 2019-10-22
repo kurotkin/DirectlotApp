@@ -1,5 +1,6 @@
 package com.kurotkin.directlotapp.crypto
 
+import android.util.Base64
 import android.util.Log
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -7,22 +8,21 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.security.Key
 import java.security.KeyPairGenerator
-import java.util.*
 import javax.crypto.Cipher
 
 
 class CryptoMakerImp : CryptoMaker{
 
+    private var publicKey: Key? = null
+    private var privateKey: Key? = null
+
     constructor() {
         genKeys()
     }
 
-    constructor(publicKey: Key?) {
-        this.publicKey = publicKey
+    constructor(publicKey: String?) {
+        this.publicKey = publicKey?.toKey()
     }
-
-    private var publicKey: Key? = null
-    private var privateKey: Key? = null
 
     private fun genKeys(){
         try {
@@ -40,7 +40,6 @@ class CryptoMakerImp : CryptoMaker{
         try {
             val c = Cipher.getInstance("RSA")
             c.init(Cipher.ENCRYPT_MODE, privateKey)
-
             return c.doFinal(text.toByteArray())
         } catch (e: Exception) {
             Log.e("Crypto", "RSA encryption error")
@@ -59,6 +58,20 @@ class CryptoMakerImp : CryptoMaker{
         }
     }
 
+    override fun decode(encoded: String) : String?{
+        try {
+            val c = Cipher.getInstance("RSA")
+            c.init(Cipher.DECRYPT_MODE, publicKey)
+            val encodedBytes = Base64.decode(encoded, Base64.DEFAULT)
+                //encoded.toByteArray()
+            val decoded = c.doFinal(encodedBytes)
+            return String(decoded)
+        } catch (e: Exception) {
+            Log.e("Crypto", "RSA decryption error")
+            return null
+        }
+    }
+
     override fun getPublicKey() : String{
         if(publicKey == null) return ""
         return publicKey!!.toStringVal()
@@ -69,14 +82,13 @@ class CryptoMakerImp : CryptoMaker{
         val oos = ObjectOutputStream(baos)
         oos.writeObject(this)
         oos.close()
-        return android.util.Base64.encodeToString(baos.toByteArray(), android.util.Base64.DEFAULT)
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
     }
 
     private fun String.toKey() : Key{
-        // https://stackoverflow.com/questions/134492/how-to-serialize-an-object-into-a-string
-        val data = android.util.Base64.decode().getDecoder().decode(s)
+        val data = Base64.decode(this, Base64.DEFAULT)
         val ois = ObjectInputStream(ByteArrayInputStream(data))
-        val o = ois.readObject()
+        val o = ois.readObject() as Key
         ois.close()
         return o
     }
