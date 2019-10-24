@@ -1,6 +1,7 @@
 package com.kurotkin.directlotapp.net
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.kurotkin.directlotapp.crypto.CryptoPouch
 import com.kurotkin.directlotapp.net.entity.Lot
 import com.kurotkin.directlotapp.net.entity.LotLite
 import kotlinx.coroutines.Deferred
@@ -13,7 +14,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val CERTIFICATE_SHA256 = "sha256/Vjs8r4z+80wjNcr1YKepWQboSIRi63WsWXhIMN+eWys="   // from https://www.ssllabs.com/ssltest/analyze.html
-const val API_KEY = "temp1jbudbw8b6vexdrtf93dnxaud"
 const val URL = "https://kurotkin.com/api/v1/"
 const val DOMEN = "kurotkin.com"
 
@@ -34,7 +34,7 @@ interface DirectlotService {
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("key", API_KEY)
+                    .addQueryParameter("key", CryptoPouch.getToken())
                     .build()
                 val request = chain.request()
                     .newBuilder()
