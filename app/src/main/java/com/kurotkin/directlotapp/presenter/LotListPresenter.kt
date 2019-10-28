@@ -1,18 +1,18 @@
 package com.kurotkin.directlotapp.presenter
 
-class LotListPresenter : Presenter() {
+import com.kurotkin.directlotapp.model.LotsRepository
+import com.kurotkin.directlotapp.view.ViewList
 
-    override fun onMakeList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+abstract class LotListPresenter(
+    val view: ViewList,
+    val repository: LotsRepository,
+    val litener: OnClickGetInfoListener) {
+
+    interface OnClickGetInfoListener {
+        fun onClickGetInfoListener(id: Long)
     }
 
-    override fun onRefreshList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onOpenLot(id: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
+    abstract fun onRefreshList()
+    abstract fun onMakeList()
+    abstract fun onOpenLot(id: Long)
 }

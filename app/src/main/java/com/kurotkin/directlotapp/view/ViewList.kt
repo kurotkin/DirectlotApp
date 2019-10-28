@@ -8,5 +8,5 @@ interface ViewList {
     fun showProgress()
     fun hideProgress()
     fun showErrorMessage(error: String?)
-    fun refresh()
+    fun refresh(lots: List<LotLite>)
 }

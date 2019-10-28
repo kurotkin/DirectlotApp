@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".info.InfoActivity">
+    tools:context=".InfoActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,16 +20,16 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageFlag"
-                    app:srcCompat="@drawable/no_image" />
+                        android:id="@+id/imageView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="32dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageFlag"
+                        app:srcCompat="@drawable/no_image" />
 
                 <TextView
                     android:id="@+id/lotName"
@@ -96,7 +96,7 @@
                     tools:text="bhjjbjb" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/go_to_web"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"

@@ -1,4 +1,4 @@
-package com.kurotkin.directlotapp
+package com.kurotkin.directlotapp.view
 
 import android.animation.ArgbEvaluator
 import android.animation.PropertyValuesHolder
@@ -8,6 +8,7 @@ import android.graphics.*
 import android.graphics.Shader.TileMode
 import android.util.AttributeSet
 import android.view.View
+import com.kurotkin.directlotapp.R
 
 class LoaderView(context: Context, attributeSet: AttributeSet): View(context, attributeSet){
 
@@ -25,7 +26,9 @@ class LoaderView(context: Context, attributeSet: AttributeSet): View(context, at
     private var rad = 0f
     private var rot = 0f
     private var color = redColor
-    private val bitmap = BitmapFactory.decodeResource(resources, R.drawable.logodl)
+    private val bitmap = BitmapFactory.decodeResource(resources,
+        R.drawable.logodl
+    )
     private var radLittle = 1f
 
     private var dur = 2000
@@ -36,7 +39,8 @@ class LoaderView(context: Context, attributeSet: AttributeSet): View(context, at
     private var radialGradients = Array(12) { RadialGradient(0f, 0f, radLittle, Color.TRANSPARENT, color, TileMode.MIRROR)}
 
     init {
-        val a = context.theme.obtainStyledAttributes(attributeSet, R.styleable.CustomLoaderView, 0, 0)
+        val a = context.theme.obtainStyledAttributes(attributeSet,
+            R.styleable.CustomLoaderView, 0, 0)
         dur = a.getInt(R.styleable.CustomLoaderView_duraction, 2000)
         a.recycle()
     }
