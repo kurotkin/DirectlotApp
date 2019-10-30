@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity(), LotListPresenter.OnClickGetInfoListene
         val view = ViewListImpl(contentView)
         val repository = LotsRepositoryImpl()
         val presenter = LotListPresenterImpl(view, repository, this)
+
         view.onFinishInflate(presenter)
         presenter.onMakeList()
     }

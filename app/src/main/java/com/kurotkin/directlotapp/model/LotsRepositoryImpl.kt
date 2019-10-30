@@ -1,5 +1,6 @@
 package com.kurotkin.directlotapp.model
 
+import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.net.DirectlotService
 import com.kurotkin.directlotapp.net.entity.Lot
 import com.kurotkin.directlotapp.net.entity.LotLite
@@ -9,6 +10,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class LotsRepositoryImpl : LotsRepository {
+
+    init {
+        App.appComponent.inject(this)
+    }
 
     override fun getLot(callback: (Lot) -> Unit, id: Long) {
         CoroutineScope(Dispatchers.IO).launch {

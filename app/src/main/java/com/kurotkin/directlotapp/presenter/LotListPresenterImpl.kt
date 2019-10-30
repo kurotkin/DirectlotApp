@@ -1,14 +1,25 @@
 package com.kurotkin.directlotapp.presenter
 
+import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.list.LiteLotRecyclerAdapter
 import com.kurotkin.directlotapp.model.LotsRepository
 import com.kurotkin.directlotapp.view.ViewList
+import javax.inject.Inject
 
-class LotListPresenterImpl(
-    view: ViewList,
-    repository: LotsRepository,
-    litener: OnClickGetInfoListener ) : LotListPresenter(view, repository, litener),
-    LiteLotRecyclerAdapter.OnClickListener {
+class LotListPresenterImpl : LotListPresenter, LiteLotRecyclerAdapter.OnClickListener {
+
+    @Inject
+    lateinit var view: ViewList
+
+    @Inject
+    lateinit var repository: LotsRepository
+
+    @Inject
+    lateinit var litener: LotListPresenter.OnClickGetInfoListener
+
+    init {
+        App.appComponent.inject(this)
+    }
 
     override fun onItemClick(id: Long) {
         onOpenLot(id)
