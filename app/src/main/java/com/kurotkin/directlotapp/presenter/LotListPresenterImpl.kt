@@ -6,16 +6,10 @@ import com.kurotkin.directlotapp.model.LotsRepository
 import com.kurotkin.directlotapp.view.ViewList
 import javax.inject.Inject
 
-class LotListPresenterImpl : LotListPresenter, LiteLotRecyclerAdapter.OnClickListener {
-
-    @Inject
-    lateinit var view: ViewList
+class LotListPresenterImpl(var view: ViewList, var litener: LotListPresenter.OnClickGetInfoListener) : LotListPresenter, LiteLotRecyclerAdapter.OnClickListener {
 
     @Inject
     lateinit var repository: LotsRepository
-
-    @Inject
-    lateinit var litener: LotListPresenter.OnClickGetInfoListener
 
     init {
         App.appComponent.inject(this)

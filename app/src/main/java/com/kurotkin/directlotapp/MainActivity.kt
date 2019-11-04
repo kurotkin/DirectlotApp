@@ -3,7 +3,6 @@ package com.kurotkin.directlotapp
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
-import com.kurotkin.directlotapp.model.LotsRepositoryImpl
 import com.kurotkin.directlotapp.presenter.LotListPresenter
 import com.kurotkin.directlotapp.presenter.LotListPresenterImpl
 import com.kurotkin.directlotapp.view.ViewListImpl
@@ -16,8 +15,8 @@ class MainActivity : AppCompatActivity(), LotListPresenter.OnClickGetInfoListene
         setContentView(contentView)
 
         val view = ViewListImpl(contentView)
-        val repository = LotsRepositoryImpl()
-        val presenter = LotListPresenterImpl(view, repository, this)
+
+        val presenter = LotListPresenterImpl(view, this)
 
         view.onFinishInflate(presenter)
         presenter.onMakeList()
