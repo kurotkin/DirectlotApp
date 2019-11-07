@@ -31,7 +31,7 @@ class InfoActivity : AppCompatActivity(), LotInfoPresenter.OnGoToWeb {
         val view = ViewInfoImpl(contentView)
         val repository = LotsRepositoryImpl()
         val presenter = LotInfoPresentrerImpl(id, view, repository, this)
-        view.onFinishInflate(presenter)
+        view.onInflate(presenter)
         presenter.onViewCreated()
     }
 

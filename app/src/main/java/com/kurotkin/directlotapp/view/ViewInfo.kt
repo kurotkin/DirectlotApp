@@ -8,7 +8,7 @@ interface ViewInfo {
 
     fun setLot(lot: Lot)
 
-    fun onFinishInflate(presenter: LotInfoPresenter){
+    fun onInflate(presenter: LotInfoPresenter){
         this.presenter = presenter
     }
 }

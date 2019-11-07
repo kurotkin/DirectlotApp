@@ -14,9 +14,9 @@ class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.builder().build()
-
         val builder = Picasso.Builder(this)
         Picasso.setSingletonInstance(builder.build())
+
+        appComponent = DaggerAppComponent.builder().build()
     }
 }

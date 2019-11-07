@@ -6,13 +6,24 @@ import com.kurotkin.directlotapp.model.LotsRepository
 import com.kurotkin.directlotapp.view.ViewList
 import javax.inject.Inject
 
-class LotListPresenterImpl(var view: ViewList, var litener: LotListPresenter.OnClickGetInfoListener) : LotListPresenter, LiteLotRecyclerAdapter.OnClickListener {
+class LotListPresenterImpl : LotListPresenter, LiteLotRecyclerAdapter.OnClickListener {
 
     @Inject
     lateinit var repository: LotsRepository
 
+    lateinit var view: ViewList
+    lateinit var listener: OnClickGetInfoListener
+
     init {
         App.appComponent.inject(this)
+    }
+
+    override fun attachView(view: ViewList) {
+        this.view = view
+    }
+
+    override fun attachListener(listener: OnClickGetInfoListener) {
+        this.listener = listener
     }
 
     override fun onItemClick(id: Long) {
@@ -36,6 +47,6 @@ class LotListPresenterImpl(var view: ViewList, var litener: LotListPresenter.OnC
     }
 
     override fun onOpenLot(id: Long) {
-        litener.onClickGetInfoListener(id)
+        listener.onClickGetInfoListener(id)
     }
 }

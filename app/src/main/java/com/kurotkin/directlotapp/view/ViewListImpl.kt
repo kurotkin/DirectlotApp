@@ -7,16 +7,22 @@ import android.view.View
 import com.kurotkin.directlotapp.R
 import com.kurotkin.directlotapp.list.LiteLotRecyclerAdapter
 import com.kurotkin.directlotapp.net.entity.LotLite
+import com.kurotkin.directlotapp.presenter.LotListPresenter
 import com.kurotkin.directlotapp.presenter.LotListPresenterImpl
 
-class ViewListImpl(val rootView: View) : ViewList {
+class ViewListImpl : ViewList {
 
-    lateinit var presenter: LotListPresenterImpl
+    lateinit var rootView: View
+    lateinit var presenter: LotListPresenter
     lateinit var lotList: RecyclerView
     lateinit var swipeContainer: SwipeRefreshLayout
     lateinit var recyclerAdapter: LiteLotRecyclerAdapter
 
-    fun onFinishInflate(presenter: LotListPresenterImpl){
+    override fun setContentView(view: View) {
+        rootView = view
+    }
+
+    override fun onInflate(presenter: LotListPresenter) {
         this.presenter = presenter
         recyclerAdapter = LiteLotRecyclerAdapter(presenter)
 
