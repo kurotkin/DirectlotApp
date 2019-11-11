@@ -1,6 +1,5 @@
 package com.kurotkin.directlotapp.view
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -10,10 +9,15 @@ import com.kurotkin.directlotapp.net.entity.Lot
 import com.kurotkin.directlotapp.presenter.LotInfoPresenter
 import com.squareup.picasso.Picasso
 
-class ViewInfoImpl(val rootView: View) : ViewInfo {
-    override lateinit var presenter: LotInfoPresenter
+class ViewInfoImpl : ViewInfo {
 
-    @SuppressLint("SetTextI18n")
+    override lateinit var presenter: LotInfoPresenter
+    private lateinit var rootView: View
+
+    override fun setContentView(view: View) {
+        rootView = view
+    }
+
     override fun setLot(lot: Lot) {
         val lotName = rootView.findViewById<TextView>(R.id.lotName)
         val textPrice = rootView.findViewById<TextView>(R.id.textPrice)

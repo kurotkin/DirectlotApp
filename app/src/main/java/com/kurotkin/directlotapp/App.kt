@@ -16,7 +16,6 @@ class App: Application() {
         super.onCreate()
         val builder = Picasso.Builder(this)
         Picasso.setSingletonInstance(builder.build())
-
         appComponent = DaggerAppComponent.builder().build()
     }
 }

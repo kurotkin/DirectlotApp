@@ -6,13 +6,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
-import com.kurotkin.directlotapp.model.LotsRepositoryImpl
 import com.kurotkin.directlotapp.presenter.LotInfoPresenter
-import com.kurotkin.directlotapp.presenter.LotInfoPresentrerImpl
-import com.kurotkin.directlotapp.view.ViewInfoImpl
-
+import com.kurotkin.directlotapp.view.ViewInfo
+import javax.inject.Inject
 
 class InfoActivity : AppCompatActivity(), LotInfoPresenter.OnGoToWeb {
+
+    @Inject
+    lateinit var presenter: LotInfoPresenter
+
+    @Inject
+    lateinit var view: ViewInfo
 
     companion object{
         const val LOG_ID = "log id"
@@ -28,9 +32,13 @@ class InfoActivity : AppCompatActivity(), LotInfoPresenter.OnGoToWeb {
         val contentView = LayoutInflater.from(this).inflate(R.layout.activity_info, null)
         setContentView(contentView)
         val id = intent.getSerializableExtra(LOG_ID) as Long
-        val view = ViewInfoImpl(contentView)
-        val repository = LotsRepositoryImpl()
-        val presenter = LotInfoPresentrerImpl(id, view, repository, this)
+
+        App.appComponent.inject(this)
+
+        view.setContentView(contentView)
+        presenter.flashId(id)
+        presenter.attachView(view)
+        presenter.attachListener(this)
         view.onInflate(presenter)
         presenter.onViewCreated()
     }
