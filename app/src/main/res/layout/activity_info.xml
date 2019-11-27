@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoActivity">
+    tools:context=".presentation.one_lot.InfoActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,8 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lotPhotos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -29,7 +30,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/no_image" />
+                    tools:listitem="@layout/item_photo"
+                    tools:itemCount="1"/>
 
                 <TextView
                     android:id="@+id/lotName"
@@ -43,7 +45,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/lotPhotos"
                     tools:text="Имя" />
 
                 <TextView
