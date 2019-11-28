@@ -13,4 +13,7 @@ interface ViewInfo {
     fun onInflate(presenter: LotInfoPresenter){
         this.presenter = presenter
     }
+
+    fun showLoader()
+    fun hideLoader()
 }

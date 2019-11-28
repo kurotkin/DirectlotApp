@@ -1,5 +1,6 @@
 package com.kurotkin.directlotapp.domain
 
+import android.util.Log
 import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.domain.entity.Lot
 import com.kurotkin.directlotapp.domain.entity.LotLite
@@ -21,21 +22,26 @@ class LotsUserCaseImpl : LotsUserCase{
 
     override fun currentLots() : Single<List<LotLite>> {
         return Single.create { emiter ->
-            repository.getCurrentLots {
+            repository.getCurrentLots().subscribe({
                 emiter.onSuccess(
                     ConvertUtil().convertLotsLiteFromServer(it)
                 )
-            }
+            },{
+                emiter.onError(it)
+            })
         }
     }
 
     override fun lot(id: Long) : Single<Lot> {
         return Single.create { emiter ->
-            repository.getLot({
+            repository.getLot(id).subscribe({
+                Thread.sleep(3000)      // Для просмотра загрузчика
                 emiter.onSuccess(
                     ConvertUtil().convertLotFromServerToLot(it)
                 )
-            }, id)
+            },{
+                emiter.onError(it)
+            })
         }
     }
 

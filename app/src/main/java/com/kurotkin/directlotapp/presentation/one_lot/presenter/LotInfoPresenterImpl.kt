@@ -1,6 +1,7 @@
 package com.kurotkin.directlotapp.presentation.one_lot.presenter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.domain.LotsUserCase
 import com.kurotkin.directlotapp.model.LotsRepository
@@ -25,12 +26,16 @@ class LotInfoPresenterImpl : LotInfoPresenter {
 
     @SuppressLint("CheckResult")
     override fun onViewCreated() {
+        view.showLoader()
         lotsUserCase.lot(id)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 view.setLot(it)
-            }, {})
+                view.hideLoader()
+            }, {
+                view.hideLoader()
+            })
     }
 
     override fun onGoToWeb(url: String) {

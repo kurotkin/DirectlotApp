@@ -66,4 +66,14 @@ class ViewInfoImpl : ViewInfo {
         }
     }
 
+    override fun showLoader() {
+        val loader = rootView.findViewById<LoaderView>(R.id.loader)
+        loader.visibility = View.VISIBLE
+    }
+
+    override fun hideLoader() {
+        val loader = rootView.findViewById<LoaderView>(R.id.loader)
+        loader.visibility = View.GONE
+    }
+
 }

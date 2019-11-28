@@ -4,11 +4,13 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.kurotkin.directlotapp.domain.crypto.CryptoPouch
 import com.kurotkin.directlotapp.model.net.entity.LotFromServer
 import com.kurotkin.directlotapp.model.net.entity.LotLiteFromServer
+import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,13 +22,13 @@ const val DOMEN = "kurotkin.com"
 interface DirectlotService {
 
     @GET("last")
-    fun getLastLots() : Deferred<List<LotFromServer>>
+    fun getLastLots() : Single<List<LotFromServer>>
 
     @GET("last/lite")
-    fun getLastLiteLots() : Deferred<List<LotLiteFromServer>>
+    fun getLastLiteLots() : Single<List<LotLiteFromServer>>
 
     @GET("one")
-    fun getOneLot(@Query("id") id : Long) : Deferred<LotFromServer>
+    fun getOneLot(@Query("id") id : Long) : Single<LotFromServer>
 
     companion object {
         operator fun invoke(): DirectlotService{
@@ -56,7 +58,7 @@ interface DirectlotService {
             return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(URL)
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(DirectlotService::class.java)

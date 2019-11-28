@@ -1,6 +1,7 @@
 package com.kurotkin.directlotapp.presentation.list_of_lots.presenter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.domain.LotsUserCase
 import com.kurotkin.directlotapp.presentation.list_of_lots.view.LiteLotRecyclerAdapter
@@ -51,7 +52,9 @@ class LotListPresenterImpl : LotListPresenter,
             .subscribe({
                 view.addLots(it)
                 view.hideProgress()
-            }, {})
+            }, {
+                Log.e("LotListPresenterImpl", it.toString())
+            })
     }
 
     override fun onOpenLot(id: Long) {
