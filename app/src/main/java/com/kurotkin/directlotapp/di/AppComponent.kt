@@ -1,11 +1,11 @@
 package com.kurotkin.directlotapp.di
 
 import com.kurotkin.directlotapp.domain.LotsUserCaseImpl
-import com.kurotkin.directlotapp.presentation.one_lot.InfoActivity
-import com.kurotkin.directlotapp.presentation.list_of_lots.MainActivity
 import com.kurotkin.directlotapp.model.LotsRepository
-import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenterImpl
+import com.kurotkin.directlotapp.presentation.list_of_lots.MainActivity
 import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenterImpl
+import com.kurotkin.directlotapp.presentation.one_lot.InfoActivity
+import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenterImpl
 import dagger.Component
 import javax.inject.Singleton
 

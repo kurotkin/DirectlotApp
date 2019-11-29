@@ -1,11 +1,9 @@
 package com.kurotkin.directlotapp.model.net
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.kurotkin.directlotapp.domain.crypto.CryptoPouch
 import com.kurotkin.directlotapp.model.net.entity.LotFromServer
 import com.kurotkin.directlotapp.model.net.entity.LotLiteFromServer
 import io.reactivex.Single
-import kotlinx.coroutines.Deferred
 import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

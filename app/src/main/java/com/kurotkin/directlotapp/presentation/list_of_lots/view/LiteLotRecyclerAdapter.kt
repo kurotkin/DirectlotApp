@@ -7,7 +7,6 @@ import com.kurotkin.directlotapp.R
 import com.kurotkin.directlotapp.domain.entity.LotLite
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_lot.view.*
-import java.util.*
 
 class LiteLotRecyclerAdapter(private val listener: OnClickListener) : RecyclerView.Adapter<LiteLotRecyclerAdapter.ViewHolder>() {
 
@@ -15,7 +14,7 @@ class LiteLotRecyclerAdapter(private val listener: OnClickListener) : RecyclerVi
         fun onItemClick(id: Long)
     }
 
-    private var items: MutableList<LotLite> = LinkedList()
+    private var items: MutableList<LotLite> = ArrayList()
 
     fun setData(items: List<LotLite>){
         this.items.clear()

@@ -13,6 +13,8 @@ import javax.crypto.Cipher
 
 class CryptoMakerImp : CryptoMaker{
 
+    private val className = this::class.simpleName
+
     private var publicKey: Key? = null
     private var privateKey: Key? = null
 
@@ -29,10 +31,10 @@ class CryptoMakerImp : CryptoMaker{
             val kpg = KeyPairGenerator.getInstance("RSA")
             kpg.initialize(1024)
             val kp = kpg.genKeyPair()
-            publicKey = kp.getPublic()
-            privateKey = kp.getPrivate()
+            publicKey = kp.public
+            privateKey = kp.private
         } catch (e: Exception) {
-            Log.e("Crypto", "RSA key pair error")
+            Log.e(className, "RSA key pair error")
         }
     }
 
@@ -42,7 +44,7 @@ class CryptoMakerImp : CryptoMaker{
             c.init(Cipher.ENCRYPT_MODE, privateKey)
             return c.doFinal(text.toByteArray())
         } catch (e: Exception) {
-            Log.e("Crypto", "RSA encryption error")
+            Log.e(className, "RSA encryption error")
             return null
         }
     }
@@ -53,7 +55,7 @@ class CryptoMakerImp : CryptoMaker{
             c.init(Cipher.DECRYPT_MODE, publicKey)
             return c.doFinal(encodedBytes)
         } catch (e: Exception) {
-            Log.e("Crypto", "RSA decryption error")
+            Log.e(className, "RSA decryption error")
             return null
         }
     }
@@ -67,7 +69,7 @@ class CryptoMakerImp : CryptoMaker{
             val decoded = c.doFinal(encodedBytes)
             return String(decoded)
         } catch (e: Exception) {
-            Log.e("Crypto", "RSA decryption error")
+            Log.e(className, "RSA decryption error")
             return null
         }
     }

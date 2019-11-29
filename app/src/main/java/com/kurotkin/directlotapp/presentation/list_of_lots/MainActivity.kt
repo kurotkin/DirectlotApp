@@ -42,11 +42,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onClickGetInfoListener(id: Long) {
-        val intent =
-            InfoActivity.getInstance(
-                this,
-                id
-            )
+        val intent = InfoActivity.getInstance(this, id)
         startActivity(intent)
     }
 

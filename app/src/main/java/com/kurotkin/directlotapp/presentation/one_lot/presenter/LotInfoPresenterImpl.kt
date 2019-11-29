@@ -1,10 +1,8 @@
 package com.kurotkin.directlotapp.presentation.one_lot.presenter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.domain.LotsUserCase
-import com.kurotkin.directlotapp.model.LotsRepository
 import com.kurotkin.directlotapp.presentation.one_lot.view.ViewInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,7 +23,8 @@ class LotInfoPresenterImpl : LotInfoPresenter {
     }
 
     @SuppressLint("CheckResult")
-    override fun onViewCreated() {
+    override fun onViewCreated(id: Long) {
+        this.id = id
         view.showLoader()
         lotsUserCase.lot(id)
             .subscribeOn(Schedulers.newThread())
@@ -48,9 +47,5 @@ class LotInfoPresenterImpl : LotInfoPresenter {
 
     override fun attachListener(listener: LotInfoPresenter.OnGoToWeb) {
         this.listener = listener
-    }
-
-    override fun flashId(id: Long) {
-        this.id = id
     }
 }

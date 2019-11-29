@@ -33,16 +33,15 @@ class InfoActivity : AppCompatActivity(), LotInfoPresenter.OnGoToWeb {
         super.onCreate(savedInstanceState)
         val contentView = LayoutInflater.from(this).inflate(R.layout.activity_info, null)
         setContentView(contentView)
-        val id = intent.getSerializableExtra(LOG_ID) as Long
+        val id = intent.getLongExtra(LOG_ID, 0)
 
         App.appComponent.inject(this)
 
         view.setContentView(contentView)
-        presenter.flashId(id)
         presenter.attachView(view)
         presenter.attachListener(this)
         view.onInflate(presenter)
-        presenter.onViewCreated()
+        presenter.onViewCreated(id)
     }
 
     override fun onGoToWeb(url: String) {

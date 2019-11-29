@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Directlot App</string>
+    <string name="rub">\u20BD</string>
+    <string name="lot_mess">Лот %1$s, добавлен %2$s\nВ наличии / в запросах покупки: %3$s / %4$s</string>
+    <string name="net_err_title">Ошибка сети</string>
+    <string name="net_err_mess">Проверьте подключение к интернету</string>
+    <string name="yes">Да</string>
+    <string name="about">
+        Мобильное приложение - клиент к сайту торговли б/у вещами directlot.ru (аналог авито).
+        Специализация портала - купля/пордажа технических приборов, инструментов, материалов, книг.
+        Данный портал не имеет мобильной версии сайта и мобильных клиентов.</string>
+    <string name="text">Text</string>
+    <string name="estimate">Оценить</string>
 </resources>

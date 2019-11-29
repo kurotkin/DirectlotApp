@@ -54,6 +54,8 @@ class LotListPresenterImpl : LotListPresenter,
                 view.hideProgress()
             }, {
                 Log.e("LotListPresenterImpl", it.toString())
+                view.hideProgress()
+                view.showErrorMessage()
             })
     }
 

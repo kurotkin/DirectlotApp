@@ -8,9 +8,8 @@ interface ViewList {
     fun setContentView(view: View)
     fun onInflate(presenter: LotListPresenter)
     fun addLots(lots : List<LotLite>)
-    fun notifyAdapter()
     fun showProgress()
     fun hideProgress()
-    fun showErrorMessage(error: String?)
+    fun showErrorMessage()
     fun refresh(lots: List<LotLite>)
 }

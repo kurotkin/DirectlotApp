@@ -1,6 +1,7 @@
 package com.kurotkin.directlotapp.presentation.list_of_lots.view
 
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -8,8 +9,7 @@ import com.kurotkin.directlotapp.R
 import com.kurotkin.directlotapp.domain.entity.LotLite
 import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenter
 
-class ViewListImpl :
-    ViewList {
+class ViewListImpl : ViewList {
 
     lateinit var rootView: View
     lateinit var presenter: LotListPresenter
@@ -40,10 +40,6 @@ class ViewListImpl :
         recyclerAdapter.setData(lots)
     }
 
-    override fun notifyAdapter() {
-
-    }
-
     override fun showProgress() {
         swipeContainer.isRefreshing = false
     }
@@ -52,8 +48,15 @@ class ViewListImpl :
         swipeContainer.isRefreshing = false
     }
 
-    override fun showErrorMessage(error: String?) {
-
+    override fun showErrorMessage() {
+        val ms = AlertDialog.Builder(rootView.context)
+        ms.setTitle(rootView.context.getString(R.string.net_err_title))
+        ms.setIcon(R.drawable.kisspng)
+        ms.setMessage(rootView.context.getString(R.string.net_err_mess))
+        ms.setPositiveButton(
+            rootView.context.getString(R.string.yes)
+        ) { dialog, arg1 -> }
+        ms.show()
     }
 
     override fun refresh(lots: List<LotLite>) {
