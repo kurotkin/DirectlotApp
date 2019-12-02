@@ -1,7 +1,6 @@
 package com.kurotkin.directlotapp.presentation.list_of_lots
 
 import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -9,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.kurotkin.core.NavigationProvider
 import com.kurotkin.directlotapp.App
 import com.kurotkin.directlotapp.R
-import com.kurotkin.directlotapp.presentation.about.AboutActivity
 import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenter
 import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.OnClickGetInfoListener
 import com.kurotkin.directlotapp.presentation.list_of_lots.view.ViewList
@@ -71,7 +70,9 @@ class MainActivity : AppCompatActivity(),
             }
         }
 
-        val intent = Intent(this, AboutActivity::class.java)
+        val provider = applicationContext as NavigationProvider
+        val navigation  = provider.getNavigation()
+        val intent = navigation.getInfoScreen()
         if (bundle == null) {
             startActivity(intent)
         } else {
