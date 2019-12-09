@@ -1,8 +1,8 @@
-package com.kurotkin.directlotapp.presentation.list_of_lots.view
+package com.kurotkin.directlotapp.presentation.view
 
 import android.view.View
 import com.kurotkin.directlotapp.domain.entity.LotLite
-import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenter
+import com.kurotkin.directlotapp.presentation.presenter.LotListPresenter
 
 interface ViewList {
     fun setContentView(view: View)

@@ -1,4 +1,4 @@
-package com.kurotkin.directlotapp.presentation.list_of_lots.presenter
+package com.kurotkin.directlotapp.presentation.presenter
 
 interface OnClickGetInfoListener {
     fun onClickGetInfoListener(id: Long)

@@ -1,4 +1,4 @@
-package com.kurotkin.directlotapp.presentation.list_of_lots
+package com.kurotkin.directlotapp.presentation
 
 import android.app.ActivityOptions
 import android.os.Build
@@ -9,12 +9,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.kurotkin.core.NavigationProvider
-import com.kurotkin.directlotapp.App
+import com.kurotkin.core.di.CoreInjectHelper
 import com.kurotkin.directlotapp.R
-import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenter
-import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.OnClickGetInfoListener
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.ViewList
-import com.kurotkin.directlotapp.presentation.one_lot.InfoActivity
+import com.kurotkin.directlotapp.di.DaggerListLotsComponent
+import com.kurotkin.directlotapp.presentation.presenter.LotListPresenter
+import com.kurotkin.directlotapp.presentation.presenter.OnClickGetInfoListener
+import com.kurotkin.directlotapp.presentation.view.ViewList
+import com.kurotkin.onelot.presentation.InfoActivity
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(),
@@ -31,7 +32,10 @@ class MainActivity : AppCompatActivity(),
         val contentView = LayoutInflater.from(this).inflate(R.layout.activity_main, null)
         setContentView(contentView)
 
-        App.appComponent.inject(this)
+        DaggerListLotsComponent.builder()
+            .coreComponent(CoreInjectHelper.provideCoreComponent(applicationContext))
+            .build()
+            .inject(this)
 
         view.setContentView(contentView)
         presenter.attachView(view)

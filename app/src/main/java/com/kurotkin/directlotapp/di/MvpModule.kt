@@ -1,13 +1,10 @@
 package com.kurotkin.directlotapp.di
 
-import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenter
-import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenterImpl
-import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenter
-import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenterImpl
-import com.kurotkin.directlotapp.presentation.one_lot.view.ViewInfo
-import com.kurotkin.directlotapp.presentation.one_lot.view.ViewInfoImpl
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.ViewList
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.ViewListImpl
+import com.kurotkin.core.di.FeatureScope
+import com.kurotkin.directlotapp.presentation.presenter.LotListPresenter
+import com.kurotkin.directlotapp.presentation.presenter.LotListPresenterImpl
+import com.kurotkin.directlotapp.presentation.view.ViewList
+import com.kurotkin.directlotapp.presentation.view.ViewListImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,20 +13,12 @@ import javax.inject.Singleton
 class MvpModule {
 
     @Provides
-    @Singleton
-    fun lotListPresenter() : LotListPresenter =
-        LotListPresenterImpl()
+    @FeatureScope
+    fun lotListPresenter() : LotListPresenter = LotListPresenterImpl()
+
 
     @Provides
-    @Singleton
-    fun lotInfoPresenter() : LotInfoPresenter = LotInfoPresenterImpl()
+    @FeatureScope
+    fun lotListView() : ViewList = ViewListImpl()
 
-    @Provides
-    @Singleton
-    fun lotListView() : ViewList =
-        ViewListImpl()
-
-    @Provides
-    @Singleton
-    fun lotInfoView() : ViewInfo = ViewInfoImpl()
 }

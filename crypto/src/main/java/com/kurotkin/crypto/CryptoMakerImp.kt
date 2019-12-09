@@ -14,7 +14,7 @@ import javax.crypto.Cipher
 
 class CryptoMakerImp : CryptoMaker{
 
-    private val className = this::class.simpleName
+    private val className = "CryptoMakerImp"
 
     private var publicKey: Key? = null
     private var privateKey: Key? = null

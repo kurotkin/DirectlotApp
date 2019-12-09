@@ -8,7 +8,7 @@ import android.graphics.*
 import android.graphics.Shader.TileMode
 import android.util.AttributeSet
 import android.view.View
-import com.kurotkin.directlotapp.R
+import com.kurotkin.onelot.R
 
 class LoaderView(context: Context, attributeSet: AttributeSet): View(context, attributeSet){
 

@@ -1,6 +1,7 @@
 package com.kurotkin.directlotapp.domain
 
-import com.kurotkin.directlotapp.App
+import com.kurotkin.directlotapp.di.DaggerListLotsComponent
+import com.kurotkin.directlotapp.di.DomainModule
 import com.kurotkin.directlotapp.domain.entity.Lot
 import com.kurotkin.directlotapp.domain.entity.LotLite
 import com.kurotkin.directlotapp.domain.utils.ConvertUtil
@@ -14,7 +15,10 @@ class LotsUserCaseImpl : LotsUserCase{
     lateinit var repository: LotsRepository
 
     init {
-        App.appComponent.inject(this)
+        DaggerListLotsComponent.builder()
+            .domainModule(DomainModule())
+            .build()
+            .inject(this)
     }
 
     override fun currentLots() : Single<List<LotLite>> {

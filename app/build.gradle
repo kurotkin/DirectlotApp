@@ -67,4 +67,5 @@ dependencies {
     implementation project(":core")
     implementation project(":info")
     implementation project(":crypto")
+    implementation project(":onelot")
 }

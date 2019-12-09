@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.kurotkin.onelot.R
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_photo.view.*
 import java.util.*
 
 class PhotosRecycleAdapter : RecyclerView.Adapter<PhotosRecycleAdapter.ViewHolder>(){

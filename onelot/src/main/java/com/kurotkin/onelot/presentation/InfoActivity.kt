@@ -6,12 +6,15 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.kurotkin.core.di.CoreInjectHelper
+import com.kurotkin.directlotapp.di.DaggerOnelotComponent
+import com.kurotkin.directlotapp.di.OnelotComponent
 import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenter
 import com.kurotkin.directlotapp.presentation.one_lot.view.ViewInfo
 import com.kurotkin.onelot.R
 import javax.inject.Inject
 
-class InfoActivity : AppCompatActivity() {
+class InfoActivity : AppCompatActivity(), LotInfoPresenter.OnGoToWeb {
     @Inject
     lateinit var presenter: LotInfoPresenter
 
@@ -33,7 +36,10 @@ class InfoActivity : AppCompatActivity() {
         setContentView(contentView)
         val id = intent.getLongExtra(LOG_ID, 0)
 
-        App.appComponent.inject(this)
+        DaggerOnelotComponent.builder()
+            .coreComponent(CoreInjectHelper.provideCoreComponent(applicationContext))
+            .build()
+            .inject(this)
 
         view.setContentView(contentView)
         presenter.attachView(view)

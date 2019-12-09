@@ -1,7 +1,7 @@
-package com.kurotkin.directlotapp.presentation.list_of_lots.presenter
+package com.kurotkin.directlotapp.presentation.presenter
 
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.LiteLotRecyclerAdapter
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.ViewList
+import com.kurotkin.directlotapp.presentation.view.LiteLotRecyclerAdapter
+import com.kurotkin.directlotapp.presentation.view.ViewList
 
 interface LotListPresenter :
     LiteLotRecyclerAdapter.OnClickListener {

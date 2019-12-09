@@ -1,5 +1,6 @@
 package com.kurotkin.directlotapp.di
 
+import com.kurotkin.core.di.FeatureScope
 import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenter
 import com.kurotkin.directlotapp.presentation.one_lot.presenter.LotInfoPresenterImpl
 import com.kurotkin.directlotapp.presentation.one_lot.view.ViewInfo
@@ -12,10 +13,10 @@ import javax.inject.Singleton
 class MvpModule {
 
     @Provides
-    @Singleton
+    @FeatureScope
     fun lotInfoPresenter() : LotInfoPresenter = LotInfoPresenterImpl()
 
     @Provides
-    @Singleton
+    @FeatureScope
     fun lotInfoView() : ViewInfo = ViewInfoImpl()
 }

@@ -1,11 +1,14 @@
-package com.kurotkin.directlotapp.presentation.list_of_lots.presenter
+package com.kurotkin.directlotapp.presentation.presenter
 
 import android.annotation.SuppressLint
 import android.util.Log
+import com.kurotkin.core.di.CoreInjectHelper
 import com.kurotkin.directlotapp.App
+import com.kurotkin.directlotapp.di.DaggerListLotsComponent
+import com.kurotkin.directlotapp.di.MvpModule
 import com.kurotkin.directlotapp.domain.LotsUserCase
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.LiteLotRecyclerAdapter
-import com.kurotkin.directlotapp.presentation.list_of_lots.view.ViewList
+import com.kurotkin.directlotapp.presentation.view.LiteLotRecyclerAdapter
+import com.kurotkin.directlotapp.presentation.view.ViewList
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -20,7 +23,10 @@ class LotListPresenterImpl : LotListPresenter,
     lateinit var listener: OnClickGetInfoListener
 
     init {
-        App.appComponent.inject(this)
+        DaggerListLotsComponent.builder()
+            .mvpModule(MvpModule())
+            .build()
+            .inject(this)
     }
 
     override fun attachView(view: ViewList) {

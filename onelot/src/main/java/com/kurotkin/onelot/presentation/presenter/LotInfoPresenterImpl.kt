@@ -1,7 +1,8 @@
 package com.kurotkin.directlotapp.presentation.one_lot.presenter
 
 import android.annotation.SuppressLint
-import com.kurotkin.directlotapp.App
+import com.kurotkin.core.di.CoreInjectHelper
+import com.kurotkin.directlotapp.di.DaggerOnelotComponent
 import com.kurotkin.directlotapp.domain.LotsUserCase
 import com.kurotkin.directlotapp.presentation.one_lot.view.ViewInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,9 @@ class LotInfoPresenterImpl : LotInfoPresenter {
     var id by Delegates.notNull<Long>()
 
     init {
-        App.appComponent.inject(this)
+        DaggerOnelotComponent.builder()
+            .build()
+            .inject(this)
     }
 
     @SuppressLint("CheckResult")

@@ -1,4 +1,4 @@
-package com.kurotkin.directlotapp.presentation.list_of_lots.view
+package com.kurotkin.directlotapp.presentation.view
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AlertDialog
@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.kurotkin.directlotapp.R
 import com.kurotkin.directlotapp.domain.entity.LotLite
-import com.kurotkin.directlotapp.presentation.list_of_lots.presenter.LotListPresenter
+import com.kurotkin.directlotapp.presentation.presenter.LotListPresenter
 
 class ViewListImpl : ViewList {
 
