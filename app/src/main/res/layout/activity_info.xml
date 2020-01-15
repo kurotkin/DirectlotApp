@@ -104,7 +104,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
                     android:drawableTop="@drawable/rectangle_blue"
-                    android:text="Перейти"
+                    android:text="@string/button_go"
                     android:background="@drawable/rectangle_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
